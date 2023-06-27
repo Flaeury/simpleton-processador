@@ -18,7 +18,7 @@ Branchneg = 41  # Se o conteúdo do ACC for negativa, realiza um Branch
 Branchzero = 42  # Se o conteúdo do ACC for 0, realiza um Branch
 Halt = 43  # Encerra o programa
 
-MP = [0]*23
+MP = [0]*18
 ACC = 0
 conteudo = 0
 endereco = 0
