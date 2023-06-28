@@ -1,82 +1,144 @@
-#Operações Entrada e saída
-Read = 10 #Ler uma palavra do teclado e armazena na célula do operando
-Write =11 #Escreve o valor armazenado na célula do operando na tela
+from tqdm import tqdm
+import time
+print("Ligando a máquina...")
+for x in tqdm(range(100)):
+    time.sleep(0.02)
 
-#Operações de Carga/Armazenamento
-Load = 20 #Carrega no ACC o conteúdo da célula do operando
-Store = 21 #Carrega do ACC o conteúdo para a célula do operando
-        
-#Operações Aritméticas
-Add= 30 #Soma o conteúdo salvo na célula do operando com o conteúdo do ACC
-Subtract=31 # Subtraí o conteúdo do ACC com o conteúdo do operando
-Divide = 32 #Divide o conteúdo do ACC pela conteúdo do operando (resultado permanece no ACC)
-Multiply = 33  #Multiplica o conteúdo do ACC pela conteúdo do operando (resultado permanece no ACC)
+Read = 10 
+Write = 11  
+Load = 20  
+Store = 21  
+Add = 30  
+Subtract = 31  
+Divide = 32
+Multiply = 33
+Branch = 40  
+Branchneg = 41 
+Branchzero = 42  
+Halt = 43 
 
-#Operações de transferência de controle
-Branch = 40 #Desvia a leitura das instruções para a instrução de endereço do operando
-Branchneg= 41 #Se o conteúdo do ACC for negativa, realiza um Branch
-Branchzero=42 #Se o conteúdo do ACC for 0, realiza um Branch
-Halt= 43 #Encerra o programa
+MP = [0]*100
+ACC = 0
+conteudo = 0
+end = 0
+i = 0
 
-MP=[0]*100
-ACC=0
-conteudo=0
-endereco=0
-i=0
-print('===Bem-Vindo ao Simpletron Python Version!===')
-print('''
-===Para utilizar, digite um programa, uma instrução ===
-=== ou palavra de dados de cada vez, a posição da a ===
-=== escrita apacerá na tela comk uma ? Então você   ===
-=== digita o conteúdo para aquela posição.Digite -1 ===
-=== para encerrar o programa.                       ===''')
+print("------------------------------------------------------------------------------------------------")
+print("|                     Por favor, escolha uma instrução ou dado por célula,                     |")
+print("|          Digite -99 para encerrar o endereçamento das células e iniciar o programa.          |")
+print("------------------------------------------------------------------------------------------------")
+print("CÓDIGOS DE OPERAÇÃO:")
+print("10: Read")
+print("11: Write")
+print("20: Load")
+print("21: Store")
+print("30: Add")
+print("31: Subtract")
+print("32: Divide")
+print("33: Multiply")
+print("40: Branch")
+print("41: Branchneg")
+print("42: Branchzero")
+print("43: Halt")
 
-while conteudo !=-1:
-    conteudo= int(input(f'Célula de endereço {endereco}: '))
-    if conteudo !=-1:
-        MP[endereco]=conteudo
-    endereco+=1
+while conteudo != -99:
+    conteudo = int(input(f"Célula {end}: "))
+    if conteudo != -99:
+        MP[end] = conteudo
+    end += 1
 
-print('''
-***Carregando Programa***
-*** Iniciando Execução do Programa***''')
+print("INICIANDO SISTEMA...")
+for x in tqdm(range(100)):
+    time.sleep(0.03)
+
 
 while i != 43:
-    codigo= int(MP[i])//100
-    Operando= int(MP[i])%100
-    if codigo== Read:
-        MP[Operando]=int(input(f'\nDigite um valor para a célula {Operando}: '))
-    if codigo== Write:
-        print(MP[Operando])
-    if codigo== Load:
-        ACC= MP[Operando]
-    if codigo== Store:
-        MP[Operando]= ACC
-    if codigo== Add:
-        ACC+=MP[Operando]
-    if codigo== Subtract:
-        ACC-=MP[Operando]
-    if codigo== Multiply:
-        ACC*=MP[Operando]
-    if codigo== Divide:
-        if MP[Operando]!=0:
-            ACC/=MP[Operando]
+    codigo_operacao = int(MP[i])//100
+    operando = int(MP[i]) % 100
+  
+    if codigo_operacao == Write:
+        print("Escrevendo")
+        for x in tqdm(range(100)):
+            time.sleep(0.02)
+        MP[operando] = int(
+            input(f'\nO que deseja escrever na célula {operando}: '))
+
+    if codigo_operacao == Read:
+        print("Lendo")
+        for x in tqdm(range(100)):
+            time.sleep(0.02)
+        print(MP[operando])
+
+    if codigo_operacao == Load:
+        print(f"Carregando dado da MP para o ACC: {MP[operando]}")
+        for x in tqdm(range(100)):
+            time.sleep(0.02)
+        ACC = MP[operando]
+        print(f"ACC = {ACC}")
+
+    if codigo_operacao == Store:
+        print(f"Guardando dado do ACC para a célula: {ACC}")
+        for x in tqdm(range(100)):
+            time.sleep(0.02)
+        MP[operando] = ACC
+        print(f"Célula {operando} = {MP[operando]}")
+
+    if codigo_operacao == Add:
+        print(f"Somando: {ACC} + {MP[operando]}")
+        for x in tqdm(range(100)):
+            time.sleep(0.01)
+        ACC += MP[operando]
+
+    if codigo_operacao == Subtract:
+        print(f"Subtraindo: {ACC} - {MP[operando]}")
+        for x in tqdm(range(100)):
+            time.sleep(0.01)
+        ACC -= MP[operando]
+
+    if codigo_operacao == Multiply:
+        print(f"Multiplicando: {ACC} * {MP[operando]}")
+        for x in tqdm(range(100)):
+            time.sleep(0.01)
+        ACC *= MP[operando]
+
+    if codigo_operacao == Divide:
+        print(f"Dividindo: {ACC} / {MP[operando]}")
+        for x in tqdm(range(100)):
+            time.sleep(0.01)
+        if MP[operando] != 0:
+            ACC /= MP[operando]
+
         else:
             print('Divisão por zero é indefinida')
-    if codigo== Branch:
-        if 0<=Operando<=99:
-            i = Operando
+
+    if codigo_operacao == Branch:
+        if 0 <= operando <= 99:
+            print("Fazendo Jump")
+            for x in tqdm(range(100)):
+                time.sleep(0.01)
+            i = operando
             continue
-    if codigo == Branchzero: 
-        if 0<=Operando<=99 and ACC==0:
-            i = Operando
+
+    if codigo_operacao == Branchzero:
+        print("Se o conteúdo do ACC = 0, fazer Jump")
+        for x in tqdm(range(100)):
+            time.sleep(0.01)
+        if 0 <= operando <= 99 and ACC == 0:
+            i = operando
             continue
-    if codigo == Branchneg:
-        if 0<=Operando<=99 and ACC<0:
-            i = Operando
+        
+
+    if codigo_operacao == Branchneg:
+        print("Se o conteúdo do ACC for negativo, fazer Jump")
+        for x in tqdm(range(100)):
+            time.sleep(0.01) 
+        if 0 <= operando <= 99 and ACC < 0:  
+            i = operando
             continue
-    if codigo== Halt:
-        print('Programa Encerrado')
+        
+
+    if codigo_operacao == Halt:
+        print("FIM DO PROGRAMA")
         break
-    i+=1
-print('Programa Encerrado')
+      
+    i += 1
