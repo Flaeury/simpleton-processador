@@ -1,3 +1,18 @@
+Link para o Youtube: https://youtu.be/Y9nnjosB22A
+
+SOMA:
+|2005| LOAD 5
+|3006| ADD 6
+|2107| STORE 7
+
+|1007| READ 7
+
+|43| HALT
+
+|PARCELA|
+|PARCELA|
+|0|
+
 POTÊNCIA:
 |2032| LOAD 32
 |3129| SUB 29
